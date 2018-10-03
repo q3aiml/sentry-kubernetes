@@ -112,11 +112,14 @@ def watch_loop():
 
         if event.involved_object and event.involved_object.name:
             name = event.involved_object.name
-            bits = name.split('-')
-            if len(bits) in (1, 2):
-                short_name = bits[0]
+            if event.involved_object.kind == "Pod":
+                bits = name.split('-')
+                if len(bits) in (1, 2):
+                    short_name = bits[0]
+                else:
+                    short_name = "-".join(bits[:-2])
             else:
-                short_name = "-".join(bits[:-2])
+                short_name = name
 
         if event.involved_object and event.involved_object.kind:
             kind = event.involved_object.kind
